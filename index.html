@@ -1,0 +1,116 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <link rel="stylesheet" href="a9_styles.css"> 
+    <title>Cafe DePaul</title>
+</head>
+    
+<body> 
+    
+    <img src="coffee_cup.png"> 
+    <h1>Cafe DePaul</h1>
+    <p>Please Place Your Order Below: </p>
+    
+    <label for="selSize">Coffee Size</label>
+    <select id="selSize"> 
+        <option value="none">--</option>
+        <option value="Small">Small  - $3.00</option>
+        <option value="Medium">Medium - $3.50</option>
+        <option value="Large">Large  - $4.00</option>
+    </select> 
+    
+    <br><br>
+    
+    <label for="radSkimMilk">Skim</label>
+    <input type="radio" id="radSkimMilk" name="milkType" value="Skim Milk">&nbsp;&nbsp;
+    <label for="radWholeMilk">Whole</label>
+    <input type="radio" id="radWholeMilk" name="milkType" value="Whole Milk">&nbsp;&nbsp;
+    <label for="rad2%Milk">2%</label>
+    <input type="radio" id="rad2%Milk" name="milkType" value="2% Milk">&nbsp;&nbsp;
+    <label for="radSoyMilk">Soy (+$1)</label>
+    <input type="radio" id="radSoyMilk" name="milkType" value="Soy Milk">&nbsp;&nbsp;
+    
+    <br><br>
+    
+    <label for="radRegCoff">Regular</label>
+    <input type="radio" id="radRegCoff" name="coffeeType" value="Regular Coffee" checked="checked">&nbsp;&nbsp;
+    <label for="radDecaf">Decaf</label>
+    <input type="radio" id="radDecaf" name="coffeeType" value="Decaf"> 
+    
+    <br><br> 
+    
+    <label for="chkExtShot">Extra Shot</label>
+    <input type="checkbox" id="chkExtShot" name="extraShot"> 
+    
+    <br><br> 
+    
+    <input type="button" class="submit-button" onclick="calculateCoffeeOrder();" value="Order!"> 
+           
+    <div id="results" class="div-results"></div><!-- Output Results Here --> 
+
+    <script> 
+        
+        function calculateCoffeeOrder() {
+            
+            var size, milk, coffee, extraShot; 
+            var cost, total; 
+            var outputSentence; 
+            
+            size = document.getElementById('selSize').value; 
+            
+            // Size Conditions
+            if (size == "Small")
+                cost = 3; 
+            else if (size == "Medium")
+                cost = 3.5;
+            else if (size == "Large")
+                cost = 4;
+            else 
+                alert ("Please Select The Size of Your Coffee!")
+
+            // Milk Type
+            if (document.getElementById('radSkimMilk').checked)
+                milk = document.getElementById('radSkimMilk').value; 
+            else if (document.getElementById('radWholeMilk').checked)
+                milk = document.getElementById('radWholeMilk').value;
+            else if (document.getElementById('rad2%Milk').checked)
+                milk = document.getElementById('rad2%Milk').value;
+            else if (document.getElementById('radSoyMilk').checked)
+            {
+                milk = document.getElementById('radSoyMilk').value;
+                cost = cost + 1; 
+            }
+            else 
+                alert ("Please Select The Milk Type!")
+  
+            // Coffee Type
+            if (document.getElementById('radRegCoff').checked)
+                coffee = document.getElementById('radRegCoff').value; 
+            else if (document.getElementById('radDecaf') .checked)
+                coffee = document.getElementById('radDecaf').value;
+
+            // Extra Shot
+            if (document.getElementById('chkExtShot').checked)
+            {
+                extraShot = true;
+                cost = cost + .75; 
+            }
+            else 
+                extraShot = false; 
+            
+            cost = cost.toFixed(2); 
+  
+            if (extraShot == true)
+                outputSentence = "You ordered " + size + " Coffee" + "<br>" + "You wanted " + milk + "<br>" + "You prefer " + coffee + "<br>" + "You wanted an Extra shot!" +  "<br>" + "The cost is $" + cost;
+            else 
+                outputSentence = "You ordered " + size + " Coffee" + "<br>" + "You wanted " + milk + "<br>" + "You prefer " + coffee + "<br>" + "The cost is $" + cost;                
+           
+            document.getElementById('results').innerHTML = outputSentence; 
+           
+        }
+    </script>   
+
+</body>
+    
+</html>
